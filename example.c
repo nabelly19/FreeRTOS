@@ -20,9 +20,9 @@ void vImprimirString(const char *pcString);
 int main(void)
 {
     // Criar tarefas
-    xTaskCreate(tarefaArfagem, "Arfagem", configMINIMAL_STACK_SIZE, (void*)"frente", 1, NULL);
-    xTaskCreate(tarefaRolagem, "Rolagem", configMINIMAL_STACK_SIZE, (void*)"direita", 1, NULL);
-    xTaskCreate(tarefaGuinada, "Guinada", configMINIMAL_STACK_SIZE, (void*)"horario", 1, NULL);
+    xTaskCreate(tarefaArfagem, "Arfagem", 1000, (void*)"frente", 1, NULL);
+    xTaskCreate(tarefaRolagem, "Rolagem", 1000, (void*)"direita", 1, NULL);
+    xTaskCreate(tarefaGuinada, "Guinada", 1000, (void*)"horario", 1, NULL);
 
     // Iniciar o escalonador
     vTaskStartScheduler();
@@ -37,7 +37,7 @@ void tarefaArfagem(void *pvParametros)
     char *direcao = (char*)pvParametros;
     for (;;)
     {
-        vImprimirString("Manobra de arfagem: ");
+        vImprimirString("[+] Manobra de arfagem: ");
         vImprimirString(direcao);
         vImprimirString("\n");
 
@@ -56,7 +56,7 @@ void tarefaArfagem(void *pvParametros)
             velocidade_motor[1] += 25;
         }
 
-        printf("Velocidades dos motores: %d, %d, %d, %d\n", velocidade_motor[0], velocidade_motor[1], velocidade_motor[2], velocidade_motor[3]);
+        printf("[+] Velocidades dos motores: %d, %d, %d, %d\n", velocidade_motor[0], velocidade_motor[1], velocidade_motor[2], velocidade_motor[3]);
 
         vTaskDelay(pdMS_TO_TICKS(40));
     }
@@ -69,7 +69,7 @@ void tarefaRolagem(void *pvParametros)
     char *direcao = (char*)pvParametros;
     for (;;)
     {
-        vImprimirString("Manobra de rolagem: ");
+        vImprimirString("[+] Manobra de rolagem: ");
         vImprimirString(direcao);
         vImprimirString("\n");
 
@@ -88,7 +88,7 @@ void tarefaRolagem(void *pvParametros)
             velocidade_motor[2] += 50;
         }
 
-        printf("Velocidades dos motores: %d, %d, %d, %d\n", velocidade_motor[0], velocidade_motor[1], velocidade_motor[2], velocidade_motor[3]);
+        printf("[+] Velocidades dos motores: %d, %d, %d, %d\n", velocidade_motor[0], velocidade_motor[1], velocidade_motor[2], velocidade_motor[3]);
 
         vTaskDelay(pdMS_TO_TICKS(20));
     }
@@ -101,7 +101,7 @@ void tarefaGuinada(void *pvParametros)
     char *direcao = (char*)pvParametros;
     for (;;)
     {
-        vImprimirString("Manobra de guinada: ");
+        vImprimirString("[+] Manobra de guinada: ");
         vImprimirString(direcao);
         vImprimirString("\n");
 
@@ -120,16 +120,14 @@ void tarefaGuinada(void *pvParametros)
             velocidade_motor[3] += 100;
         }
 
-        printf("Velocidades dos motores: %d, %d, %d, %d\n", velocidade_motor[0], velocidade_motor[1], velocidade_motor[2], velocidade_motor[3]);
+        printf("[+] Velocidades dos motores: %d, %d, %d, %d\n", velocidade_motor[0], velocidade_motor[1], velocidade_motor[2], velocidade_motor[3]);
 
         vTaskDelay(pdMS_TO_TICKS(10));
     }
     vTaskDelete(NULL);
 }
 
-// Função para imprimir strings (a implementação pode variar dependendo do sistema)
 void vImprimirString(const char *pcString)
 {
-    // A implementação depende do método de saída do seu sistema
     printf("%s", pcString);
 }
