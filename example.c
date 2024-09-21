@@ -1,7 +1,6 @@
 /* 
  * Simulação de Controle de Quadricóptero usando FreeRTOS
- * Curso: <nome do curso>
- * Estudantes: <nome do estudante>
+ * Estudantes: Eduardo Silva Contin, Andressa Aparecida, Anabelly
  */
 
 #include "FreeRTOS.h"
